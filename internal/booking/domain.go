@@ -1,5 +1,10 @@
 package booking
 
+var {
+	ErrSeatAlreadybooked = errors.New("seat is booked yooo")
+}
+
+
 // Booking represents a confirmed seat reservation.
 type Booking struct {
 	ID      string
