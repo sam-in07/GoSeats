@@ -239,6 +239,60 @@ No double bookings, even when multiple users attempt to reserve the same seat si
 
 
 
+``````json
+python
+```
+
+PS D:\webProjects\Gaylang\Go_projects\GoSeats> go run ./... -v
+PS D:\webProjects\Gaylang\Go_projects\GoSeats> go test ./... -v
+?       sam-in07/GoSeats/cmd    [no test files]
+=== RUN   TestConcurrentBooking_ExactlyOneWins
+fatal error: concurrent map writes
+
+goroutine 26 [running]:
+internal/runtime/maps.fatal({0x7ff6b1f533b1?, 0x7ff6b1dcbbf7?})
+        E:/AppdownloadFiles/GOlang/src/runtime/panic.go:1181 +0x18
+sam-in07/GoSeats/internal/booking.(*MemoryStore).Book(0x25905a2340b0, {{0x0, 0x0}, {0x7ff6b1f4e871, 0x8}, {0x7ff6b1f4dc30, 0x2}, {0x25905a482000, 0x24}, {0x0, ...}})
+        D:/webProjects/Gaylang/Go_projects/GoSeats/internal/booking/memory_store.go:19 +0x7c
+sam-in07/GoSeats/internal/booking.(*Service).Book(...)
+        D:/webProjects/Gaylang/Go_projects/GoSeats/internal/booking/service.go:12
+sam-in07/GoSeats/internal/booking.TestConcurrentBooking_ExactlyOneWins.func1(0x0?)
+        D:/webProjects/Gaylang/Go_projects/GoSeats/internal/booking/service_test.go:27 +0x1aa
+created by sam-in07/GoSeats/internal/booking.TestConcurrentBooking_ExactlyOneWins in goroutine 8
+        D:/webProjects/Gaylang/Go_projects/GoSeats/internal/booking/service_test.go:25 +0xfe
+FAIL    sam-in07/GoSeats/internal/booking       1.989s
+?       sam-in07/GoSeats/internal/utils [no test files]
+FAIL
+PS D:\webProjects\Gaylang\Go_projects\GoSeats> go test ./... -v
+?       sam-in07/GoSeats/cmd    [no test files]
+=== RUN   TestConcurrentBooking_ExactlyOneWins
+--- PASS: TestConcurrentBooking_ExactlyOneWins (0.05s)
+PASS
+ok      sam-in07/GoSeats/internal/booking       1.592s
+?       sam-in07/GoSeats/internal/utils [no test files]
+PS D:\webProjects\Gaylang\Go_projects\GoSeats> go test -race ./...
+?       sam-in07/GoSeats/cmd    [no test files]
+ok      sam-in07/GoSeats/internal/booking       2.503s
+?       sam-in07/GoSeats/internal/utils [no test files]
+PS D:\webProjects\Gaylang\Go_projects\GoSeats> go test ./... -v -count=1              
+?       sam-in07/GoSeats/cmd    [no test files]
+=== RUN   TestConcurrentBooking_ExactlyOneWins
+--- PASS: TestConcurrentBooking_ExactlyOneWins (0.08s)
+PASS
+ok      sam-in07/GoSeats/internal/booking       1.560s
+?       sam-in07/GoSeats/internal/utils [no test files]
+PS D:\webProjects\Gaylang\Go_projects\GoSeats> go test ./... -v -count=1  -race 
+?       sam-in07/GoSeats/cmd    [no test files]
+=== RUN   TestConcurrentBooking_ExactlyOneWins
+--- PASS: TestConcurrentBooking_ExactlyOneWins (0.37s)
+PASS
+ok      sam-in07/GoSeats/internal/booking       2.702s
+?       sam-in07/GoSeats/internal/utils [no test files]
+PS D:\webProjects\Gaylang\Go_projects\GoSeats> 
+
+
+
 
 
    
+```
